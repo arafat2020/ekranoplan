@@ -1,7 +1,6 @@
 //! Plain TCP frames. No TLS.
 
-use tokio::io::{AsyncReadExt, AsyncWriteExt};
-use tokio::net::TcpStream;
+use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 
 use protocol::codec::{decode, encode};
 use protocol::error::CodecError;
@@ -22,14 +21,17 @@ pub enum FrameError {
     Stopped,
 }
 
-/// Reads length-prefixed frames from one accepted socket.
-pub struct FrameReader {
-    stream: TcpStream,
+/// Reads length-prefixed frames from one accepted socket or a stream wrapped around it.
+pub struct FrameReader<S> {
+    stream: S,
     stopped: bool,
 }
 
-impl FrameReader {
-    pub fn new(stream: TcpStream) -> Self {
+impl<S> FrameReader<S>
+where
+    S: AsyncRead + AsyncWrite + Unpin,
+{
+    pub fn new(stream: S) -> Self {
         Self {
             stream,
             stopped: false,
@@ -87,10 +89,13 @@ impl FrameReader {
 }
 
 /// Writes `message` as one length-prefixed frame.
-pub async fn write_identification(
-    stream: &mut TcpStream,
+pub async fn write_identification<S>(
+    stream: &mut S,
     message: &ClientIdentification,
-) -> Result<(), FrameError> {
+) -> Result<(), FrameError>
+where
+    S: AsyncWrite + Unpin,
+{
     let frame = encode(&message.encode_to_vec()).map_err(FrameError::Codec)?;
     stream.write_all(&frame).await.map_err(FrameError::Io)?;
     Ok(())
