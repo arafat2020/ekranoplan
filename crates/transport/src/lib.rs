@@ -1,3 +1,4 @@
-//! Handler bus. No sockets in this crate yet.
+//! Handler bus and plain TCP frames.
 
 pub mod bus;
+pub mod tcp;
