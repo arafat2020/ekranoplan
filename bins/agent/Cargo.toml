@@ -1,0 +1,9 @@
+[package]
+name = "ekranoplan-agent"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+transport = { path = "../../crates/transport" }
+platform-api = { path = "../../crates/platform-api" }

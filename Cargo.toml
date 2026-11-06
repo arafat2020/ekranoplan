@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/protocol",
+    "crates/transport",
+    "crates/platform-api",
+    "crates/platform-linux",
+    "crates/platform-macos",
+    "bins/agent",
+    "bins/server",
+    "bins/cli",
+]
