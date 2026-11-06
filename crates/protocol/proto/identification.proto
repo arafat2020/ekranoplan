@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package ekranoplan.protocol;
+
+// Field numbers 1-12 match Quasar.Common.Messages.ClientIdentification.
+// 13 and 14 are new and are written here so both sides share the same numbers.
+
+enum Os {
+  OS_UNSPECIFIED = 0;
+  WINDOWS = 1;
+  MACOS = 2;
+  LINUX = 3;
+}
+
+message ClientIdentification {
+  string version = 1;
+  string operating_system = 2;
+  string account_type = 3;
+  string country = 4;
+  string country_code = 5;
+  int32 image_index = 6;
+  string id = 7;
+  string username = 8;
+  string pc_name = 9;
+  string tag = 10;
+  string encryption_key = 11;
+  bytes signature = 12;
+  Os os = 13;
+  uint64 capabilities = 14;
+}
+
+message ClientIdentificationResult {
+  bool result = 1;
+}
