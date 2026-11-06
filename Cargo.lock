@@ -345,6 +345,9 @@ dependencies = [
 [[package]]
 name = "transport"
 version = "0.1.0"
+dependencies = [
+ "protocol",
+]
 
 [[package]]
 name = "unicode-ident"
