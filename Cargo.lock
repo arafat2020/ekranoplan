@@ -66,6 +66,10 @@ version = "0.1.0"
 [[package]]
 name = "ekranoplan-server"
 version = "0.1.0"
+dependencies = [
+ "tokio",
+ "transport",
+]
 
 [[package]]
 name = "equivalent"
