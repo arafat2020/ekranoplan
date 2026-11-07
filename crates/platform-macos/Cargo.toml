@@ -6,3 +6,4 @@ publish = false
 
 [dependencies]
 platform-api = { path = "../platform-api" }
+sysinfo = { version = "0.40", default-features = false, features = ["system"] }

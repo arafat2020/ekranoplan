@@ -1,1 +1,3 @@
-//! macOS implementations of the platform traits. No behavior in phase 00.
+//! macOS implementations of the platform traits.
+
+pub mod host;
